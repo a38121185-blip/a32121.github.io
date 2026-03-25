@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>simple horizon | calm page example</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f8fafc 0%, #eef2f5 100%);
+      font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+      line-height: 1.5;
+      color: #1a2a3f;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+    }
+
+    /* main card container */
+    .card {
+      max-width: 800px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(0px);
+      border-radius: 2rem;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.02);
+      overflow: hidden;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    /* subtle header area */
+    .hero {
+      background: #ffffff;
+      padding: 2rem 2rem 1rem 2rem;
+      border-bottom: 1px solid #e9edf2;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+      color: #3b82f6;
+      background: #eef4ff;
+      padding: 0.2rem 0.7rem;
+      border-radius: 30px;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #1e293b, #2d3a4e);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .lead {
+      font-size: 1.1rem;
+      color: #475569;
+      max-width: 90%;
+    }
+
+    /* content section */
+    .content {
+      padding: 2rem;
+    }
+
+    .info-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .info-card {
+      flex: 1;
+      background: #f9fafb;
+      border-radius: 1.25rem;
+      padding: 1.25rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid #edf2f7;
+    }
+
+    .info-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 20px -12px rgba(0, 0, 0, 0.1);
+      background: white;
+    }
+
+    .info-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+
+    .info-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #0f172a;
+    }
+
+    .info-card p {
+      color: #334155;
+      font-size: 0.9rem;
+    }
+
+    /* interactive demo section */
+    .demo-section {
+      background: #f1f5f9;
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0 1rem 0;
+      border: 1px solid #e2e8f0;
+    }
+
+    .demo-title {
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #0c4a6e;
+    }
+
+    .click-area {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    button {
+      background: #2c3e5c;
+      border: none;
+      color: white;
+      font-weight: 500;
+      padding: 0.65rem 1.3rem;
+      border-radius: 60px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+      font-family: inherit;
+    }
+
+    button:hover {
+      background: #1e2f48;
+      transform: scale(0.97);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    button:active {
+      transform: scale(0.96);
+    }
+
+    #clickMessage {
+      background: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 60px;
+      font-size: 0.9rem;
+      color: #1e293b;
+      border: 1px solid #cbd5e1;
+      min-width: 180px;
+      text-align: center;
+      transition: 0.1s;
+    }
+
+    /* simple counter row */
+    .counter-panel {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.2rem;
+      padding-top: 1rem;
+      border-top: 1px dashed #cbd5e1;
+    }
+
+    .counter-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      font-family: monospace;
+      background: #ffffff;
+      padding: 0.2rem 0.9rem;
+      border-radius: 60px;
+      color: #0369a1;
+      letter-spacing: 1px;
+    }
+
+    /* footer */
+    .footer-note {
+      margin-top: 1.8rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #5b6e8c;
+      border-top: 1px solid #e2edf2;
+      padding-top: 1.5rem;
+    }
+
+    hr {
+      margin: 0.5rem 0;
+      border: 0;
+      height: 1px;
+      background: linear-gradient(to right, #e0e7ef, transparent);
+    }
+
+    @media (max-width: 640px) {
+      .card {
+        border-radius: 1.5rem;
+      }
+      .hero {
+        padding: 1.5rem;
+      }
+      h1 {
+        font-size: 1.9rem;
+      }
+      .content {
+        padding: 1.5rem;
+      }
+      .info-grid {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="hero">
+    <span class="hero-badge">✦ simple HTML example</span>
+    <h1>quiet & friendly<br>web starter</h1>
+    <p class="lead">a clean, responsive page with minimal style and a touch of interactivity — perfect foundation or inspiration.</p>
+  </div>
+
+  <div class="content">
+    <!-- three feature blocks -->
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon">📄</div>
+        <h3>semantic markup</h3>
+        <p>Clean HTML5 structure: header, main sections, and accessible elements. Easy to read and extend.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🎨</div>
+        <h3>modern styling</h3>
+        <p>Soft gradients, rounded corners, and subtle hover states. Looks sharp on any device.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">⚡</div>
+        <h3>vanilla JS</h3>
+        <p>Lightweight interactive demo — no frameworks, just native JavaScript for quick feedback.</p>
+      </div>
+    </div>
+
+    <!-- interactive demo zone -->
+    <div class="demo-section">
+      <div class="demo-title">
+        <span>✨</span> 
+        <span>live demo — click & enjoy</span>
+      </div>
+      
+      <div class="click-area">
+        <button id="greetBtn">say hello 🌼</button>
+        <button id="resetMsgBtn">clear message</button>
+        <span id="clickMessage">✨ click the button</span>
+      </div>
+
+      <div class="counter-panel">
+        <span style="font-weight:500;">🍃 interaction counter:</span>
+        <div style="display: flex; align-items: center; gap: 0.8rem;">
+          <span class="counter-value" id="counterDisplay">0</span>
+          <button id="resetCounterBtn" style="background:#94a3b8; padding:0.4rem 1rem; box-shadow: none;">reset</button>
+        </div>
+      </div>
+      <p style="font-size: 0.75rem; margin-top: 1rem; color: #4b5563; text-align: right;">every click on "say hello" or "clear" increases the counter ✨</p>
+    </div>
+    
+    <!-- additional static info block -->
+    <div style="margin-top: 1rem; background: transparent;">
+      <p style="font-size: 0.9rem; color: #2c3e50;"><strong>🔍 why this page?</strong> It demonstrates a self-contained HTML document with responsive design, interactive JavaScript, and clean UI. You can copy the whole code, save as <code style="background:#eef2ff; padding:0.2rem 0.4rem; border-radius: 8px;">.html</code> and open in any browser.</p>
+    </div>
+
+    <div class="footer-note">
+      <span>☕ simple HTML page · built with semantic elements · pure CSS/JS</span><br>
+      <span style="font-size: 0.7rem;">— resize window to see responsive behavior —</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // DOM elements
+    const greetButton = document.getElementById('greetBtn');
+    const resetMsgButton = document.getElementById('resetMsgBtn');
+    const messageSpan = document.getElementById('clickMessage');
+    const counterSpan = document.getElementById('counterDisplay');
+    const resetCounterBtn = document.getElementById('resetCounterBtn');
+
+    // counter state
+    let interactionCount = 0;
+
+    // helper: update counter display
+    function updateCounterDisplay() {
+      if (counterSpan) {
+        counterSpan.textContent = interactionCount;
+      }
+    }
+
+    // helper: increment counter and refresh UI
+    function incrementCounter() {
+      interactionCount += 1;
+      updateCounterDisplay();
+    }
+
+    // set message with animation effect (optional slight flash)
+    function setMessage(text, isSuccess = true) {
+      if (messageSpan) {
+        messageSpan.textContent = text;
+        messageSpan.style.transition = '0.1s';
+        messageSpan.style.transform = 'scale(1.02)';
+        setTimeout(() => {
+          if (messageSpan) messageSpan.style.transform = '';
+        }, 150);
+      }
+    }
+
+    // handle greet action
+    function handleGreet() {
+      const greetings = [
+        "👋 hello! hope you're having a great day",
+        "🌞 hi there — simple HTML at your service",
+        "💡 click! this page is live and responsive",
+        "🌟 yay! vanilla JS works like a charm",
+        "🍃 greetings from the code garden"
+      ];
+      const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+      setMessage(randomGreeting);
+      incrementCounter();
+    }
+
+    // handle reset message
+    function handleResetMessage() {
+      setMessage("✨ message cleared — ready for next click");
+      incrementCounter();
+      // optional: after 2 seconds set a neutral placeholder if needed, but keep current nice text
+      setTimeout(() => {
+        if (messageSpan && messageSpan.textContent === "✨ message cleared — ready for next click") {
+          // only change if still the same reset message (so user doesn't lose new interaction)
+          // but it's friendly to leave as is. For better UX, we don't auto-change.
+        }
+      }, 1800);
+    }
+
+    // reset counter only
+    function handleResetCounter() {
+      interactionCount = 0;
+      updateCounterDisplay();
+      // show a temporary subtle feedback on counter reset
+      if (messageSpan) {
+        const originalMsg = messageSpan.textContent;
+        messageSpan.textContent = "🧹 counter reset to zero";
+        setTimeout(() => {
+          if (messageSpan && messageSpan.textContent === "🧹 counter reset to zero") {
+            messageSpan.textContent = originalMsg === "🧹 counter reset to zero" ? "✨ ready" : originalMsg;
+          }
+        }, 1200);
+      } else {
+        // fallback
+        setMessage("counter reset", true);
+      }
+    }
+
+    // attach event listeners safely
+    if (greetButton) {
+      greetButton.addEventListener('click', handleGreet);
+    }
+    if (resetMsgButton) {
+      resetMsgButton.addEventListener('click', handleResetMessage);
+    }
+    if (resetCounterBtn) {
+      resetCounterBtn.addEventListener('click', handleResetCounter);
+    }
+
+    // initial set
+    updateCounterDisplay();
+    // set a friendly default message if needed
+    if (messageSpan && messageSpan.textContent.trim() === "") {
+      messageSpan.textContent = "✨ click the button";
+    }
+  })();
+</script>
+
+</body>
+</html>
